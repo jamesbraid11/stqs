@@ -2,10 +2,11 @@ import { useState } from "react"
 import { Outlet, useNavigation } from 'react-router-dom'
 
 // Custom components
+import Nav from './components/Nav'
 
 import Loading from './images/monsters.gif'
 
-function App() {
+export default function App() {
 
   const navigation = useNavigation()
 
@@ -13,6 +14,7 @@ function App() {
 
   return (
     <>
+    <Nav />
       <main>
         {
           navigation.state === 'idle' ?
@@ -26,5 +28,3 @@ function App() {
     </>
   )
 }
-
-export default App;

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { Form, useActionData, useOutletContext } from "react-router-dom";
 
-function ContinueGame() {
+export default function ContinueGame() {
 
   // State
   const [form, setForm] = useState({ token: "" })
@@ -35,5 +35,3 @@ function ContinueGame() {
     </>
   )
 }
-
-export default ContinueGame

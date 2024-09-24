@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { Form, useActionData, useOutletContext } from "react-router-dom";
 
-function NewGame() {
+export default function NewGame() {
 
   // States
   const [token, setToken] = useState()
@@ -44,5 +44,3 @@ function NewGame() {
     </>
   );
 }
-
-export default NewGame
