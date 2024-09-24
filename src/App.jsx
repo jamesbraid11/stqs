@@ -1,13 +1,25 @@
-import "./App.css";
-import NewGame from "./NewGame";
+import { Outlet, useNavigation } from 'react-router-dom'
+
+// Custom components
+
+import Loading from './images/monsters.gif'
 
 function App() {
+  const navigation = useNavigation()
   return (
     <>
-      <h1>STQS</h1>
-      <NewGame />
+      <main>
+        {
+          navigation.state === 'idle' ?
+            <Outlet />
+            :
+            <div>
+              <img src={Loading} alt="monster loading gif" style={{ width: '20rem' }}/>
+            </div>
+        }
+      </main>
     </>
-  );
+  )
 }
 
 export default App;
