@@ -1,17 +1,12 @@
 import { useState, useEffect } from "react"
-import { Form, useActionData } from "react-router-dom";
-
-/**
- * This component is a basic MVP of part one of the quickstart. It handles registering your agent and receives a token
- * which you will need to use in subsequent calls. Therefore, you might want to refactor or replace this as you move forward.
- */
+import { Form, useActionData, useOutletContext } from "react-router-dom";
 
 function NewGame() {
 
   // States
-  const [token, setToken] = useState();
-  const [agentData, setAgentData] = useState("");
-  const [form, setForm] = useState({ symbol: "", faction: "COSMIC" });
+  const [token, setToken] = useState()
+  const [agentData, setAgentData] = useOutletContext()
+  const [form, setForm] = useState({ symbol: "", faction: "COSMIC" })
 
   // response received from user submitted action
   const res = useActionData()

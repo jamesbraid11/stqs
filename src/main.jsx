@@ -6,10 +6,11 @@ import './index.css'
 
 // Page components
 import App from './App.jsx'
-import NewGame from './NewGame.jsx'
+import NewGame from './components/NewGame.jsx'
 
 // Actions
-import { registerAgent } from './utils/actions/stqs.js'
+import { loadAgent, registerAgent } from './utils/actions/stqs.js'
+import ContinueGame from './components/ContinueGame.jsx'
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,12 @@ const router = createBrowserRouter([
         path: '/',
         element: <NewGame />,
         action: async ({ request }) => registerAgent(request)
-      }
+      },
+      {
+        path: '/continueGame',
+        element: <ContinueGame />,
+        action: async ({ request }) => loadAgent(request)
+      },
     ]
   }
 ])
