@@ -8,6 +8,9 @@ import './index.css'
 import App from './App.jsx'
 import NewGame from './NewGame.jsx'
 
+// Actions
+import { registerAgent } from './utils/actions/stqs.js'
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -16,6 +19,7 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <NewGame />,
+        action: async ({ request }) => registerAgent(request)
       }
     ]
   }

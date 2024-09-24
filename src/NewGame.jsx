@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { Form, useActionData } from "react-router-dom";
 
 /**
  * This component is a basic MVP of part one of the quickstart. It handles registering your agent and receives a token
@@ -6,38 +7,47 @@ import { useState } from "react"
  */
 
 function NewGame() {
+
+  // States
   const [token, setToken] = useState();
-  const [resp, setResp] = useState("");
+  const [agentData, setAgentData] = useState("");
   const [form, setForm] = useState({ symbol: "", faction: "COSMIC" });
 
-  return (<>
-    <h1>New Game</h1>
-    <input name="symbol" value={form.symbol} onChange={(e) => setForm({ ...form, symbol: e.currentTarget.value })} />
-    <input name="faction" value={form.faction} onChange={(e) => setForm({ ...form, faction: e.currentTarget.value })} />
-    <input type="submit" onClick={async () => {
-      const resp = await fetch("https://api.spacetraders.io/v2/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          symbol: form.symbol,
-          faction: form.faction,
-        }),
-        // console.log(body)
-      });
+  // response received from user submitted action
+  const res = useActionData()
 
-      const json = await resp.json();
+  useEffect(() => {
+    console.log("res:", res)
+    if (res && !res.error) {
+      setAgentData(JSON.stringify(res, null, 2))
+      setToken(res.data?.token);
+    } else if (res?.error) {
+      console.error("Error from API:", res.error);
+    }
+  }, [res])
 
-      if (resp.ok) {
-        setToken(json.data.token)
-      }
+  return (
+    <>
+      <h1>New Game</h1>
+      <Form method="post">
+        <input
+          name="symbol"
+          value={form.symbol}
+          onChange={(e) => setForm({ ...form, symbol: e.currentTarget.value })}
+        />
+        <input
+          name="faction"
+          value={form.faction}
+          onChange={(e) => setForm({ ...form, faction: e.currentTarget.value })}
+        />
+        <button type="submit">Start New Game</button>
+      </Form>
 
-      setResp(JSON.stringify(json, null, 2))
-    }} />
-    <pre>API token: {token}</pre>
-    <pre>Response: {resp}</pre>
-  </>)
+      {/* Display the token and response data */}
+      <pre>API token: {token}</pre>
+      <pre>Response: {agentData}</pre>
+    </>
+  );
 }
 
 export default NewGame
