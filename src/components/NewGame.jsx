@@ -16,6 +16,8 @@ export default function NewGame() {
     if (res && !res.error) {
       setAgentData(JSON.stringify(res, null, 2))
       setToken(res.data?.token);
+      console.log("agentData:", agentData)
+      console.log("token:", token)
     } else if (res?.error) {
       console.error("Error from API:", res.error);
     }
@@ -37,9 +39,10 @@ export default function NewGame() {
         />
         <button type="submit">Start New Game</button>
       </Form>
-
+      {agentData?.data?.token && <p>Registered successfully</p>}
+      {res?.error && <p>Log in failed</p>}
       {/* Display the token and response data */}
-      <pre>API token: {token}</pre>
+      <pre>Game access token: {token}</pre>
       <pre>Response: {agentData}</pre>
     </>
   );
