@@ -41,7 +41,6 @@ export async function loadAgent(request) {
   // console.log(data)
   try {
     const resp = await fetch("https://api.spacetraders.io/v2/my/agent", {
-      method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${obj.token}`
