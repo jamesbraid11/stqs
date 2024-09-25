@@ -4,7 +4,7 @@ import { Outlet, useNavigation } from 'react-router-dom'
 // Custom components
 import Nav from './components/Nav'
 
-import Loading from './images/monsters.gif'
+import Loading from './images/galaxy.gif'
 
 export default function App() {
 
