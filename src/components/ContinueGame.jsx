@@ -11,11 +11,13 @@ export default function ContinueGame() {
   // response received from user submitted action
   const res = useActionData()
 
+  // Set token state variable from user's form entry
   useEffect(() => {
     setToken(form.token)
     console.log("token:", token)
   }, [form])
 
+  // Set agentId state variable from response to registration action once received
   useEffect(() => {
     console.log("res:", res)
     if (res && !res.error) {
@@ -25,6 +27,7 @@ export default function ContinueGame() {
     }
   }, [res])
 
+  // Check agentId state variable has been updated successfully after registration
   useEffect(() => {
     console.log("agentId:", agentId)
   }, [agentId])

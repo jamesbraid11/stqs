@@ -2,6 +2,7 @@ import { formToObj } from '../helpers/common'
 
 // This function sends a post request containing user data from NewGame to create an agent
 export async function registerAgent(request) {
+  // Convert request data into object containing user form entries using formToObj helper function
   const obj = await formToObj(request)
   console.log("obj:", obj)
   // const data = JSON.stringify(obj)
@@ -35,10 +36,9 @@ export async function registerAgent(request) {
 
 // This function sends a post request containing user token from ContinueGame to load agent data
 export async function loadAgent(request) {
+  // Convert request data into object containing user form entries using formToObj helper function
   const obj = await formToObj(request)
   console.log("obj:", obj)
-  // const data = JSON.stringify(obj)
-  // console.log(data)
   try {
     const resp = await fetch("https://api.spacetraders.io/v2/my/agent", {
       headers: {
