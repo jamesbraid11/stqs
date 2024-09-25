@@ -19,18 +19,18 @@ export async function registerAgent(request) {
       }),
     })
 
-    const json = await resp.json();
+    const json = await resp.json()
     
     if (!resp.ok) {
-      throw new Error(json.error || "Registration failed: response not ok");
+      throw new Error(json.error || "Registration failed: response not ok")
     }
 
     console.log("json:", json)
 
-    return json;
+    return json
   } catch (error) {
     console.error("Registration failed: catch error", error)
-    return { error: error.message };
+    return { error: error.message }
   }
 }
 
@@ -47,7 +47,7 @@ export async function loadAgent(request) {
       }
     })
 
-    const json = await resp.json();
+    const json = await resp.json()
     
     if (!resp.ok) {
       throw new Error(json.error || "Registration failed: response not ok");
@@ -58,6 +58,6 @@ export async function loadAgent(request) {
     return json;
   } catch (error) {
     console.error("Registration failed: catch error", error)
-    return { error: error.message };
+    return { error: error.message }
   }
 }

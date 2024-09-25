@@ -1,32 +1,34 @@
 import { useState, useEffect } from "react"
-import { Form, useActionData, useOutletContext } from "react-router-dom";
+import { Form, useActionData } from "react-router-dom"
+
+import { setToken } from '../utils/helpers/common'
 
 export default function NewGame() {
 
   // States
-  const [token, setToken] = useOutletContext()
   const [agentData, setAgentData] = useState("")
+  const [gameToken, setGameToken] = useState("")
   const [form, setForm] = useState({ symbol: "", faction: "COSMIC" })
 
-  // response received from user submitted registerAgent action
-  const res = useActionData()
+  // Access the response received from user registration
+  const resp = useActionData()
 
   // Set agentData and token state variables from response to registration action once received
   useEffect(() => {
-    console.log("res:", res)
-    if (res && !res.error) {
-      setAgentData(JSON.stringify(res, null, 2))
-      setToken(res.data?.token);
-    } else if (res?.error) {
-      console.error("Error from API:", res.error);
+    console.log("res:", resp)
+    if (resp && !resp.error) {
+      setAgentData(JSON.stringify(resp, null, 2))
+      setToken(resp.data?.token)
+    } else if (resp?.error) {
+      console.error("Error from API:", resp.error)
     }
-  }, [res])
+  }, [resp])
 
   // Check agentData and token state variables have been updated successfully after registration
   useEffect(() => {
     console.log("agentData:", agentData)
-    console.log("token:", token)
-  }, [agentData, token])
+    console.log("token:", resp.data.token)
+  }, [agentData, resp])
 
   return (
     <>
@@ -45,11 +47,11 @@ export default function NewGame() {
         />
         <button type="submit">Start New Game</button>
       </Form>
-      {token && <p>Registered successfully</p>}
-      {res?.error && <p>Registration failed</p>}
+      {resp.data?.token && <p>Registered successfully, now check out your contracts through the game navigation dropdown</p>}
+      {resp?.error && <p>Registration failed</p>}
       {/* Display the token and response data */}
-      <pre>Game access token: {token}</pre>
+      <pre>Game access token: {gameToken}</pre>
       <pre>Agent data: {agentData}</pre>
     </>
-  );
+  )
 }

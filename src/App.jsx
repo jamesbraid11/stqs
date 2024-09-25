@@ -12,7 +12,7 @@ export default function App() {
   const navigation = useNavigation()
 
   // State to be accessible to all children with useOutletContext
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState("")
 
   return (
     <>

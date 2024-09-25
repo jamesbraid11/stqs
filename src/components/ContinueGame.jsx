@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react"
-import { Form, useActionData, useOutletContext } from "react-router-dom";
+import { Form, useActionData } from "react-router-dom"
+
+import { setToken } from '../utils/helpers/common'
 
 export default function ContinueGame() {
 
   // State
   const [form, setForm] = useState({ token: "" })
-  const [token, setToken] = useOutletContext()
   const [agentId, setAgentId] = useState("")
 
-  // response received from user submitted action
-  const res = useActionData()
+  // Access the response received from user log in
+  const resp = useActionData()
 
   // Set token state variable from user's form entry
   useEffect(() => {
@@ -19,13 +20,13 @@ export default function ContinueGame() {
 
   // Set agentId state variable from response to registration action once received
   useEffect(() => {
-    console.log("res:", res)
-    if (res && !res.error) {
-      setAgentId(JSON.stringify(res, null, 2))
-    } else if (res?.error) {
-      console.error("Error from API:", res.error);
+    console.log("resp:", resp)
+    if (resp && !resp.error) {
+      setAgentId(JSON.stringify(resp, null, 2))
+    } else if (resp?.error) {
+      console.error("Error from API:", resp.error)
     }
-  }, [res])
+  }, [resp])
 
   // Check agentId state variable has been updated successfully after registration
   useEffect(() => {
@@ -43,8 +44,8 @@ export default function ContinueGame() {
         />
         <button type="submit">Continue Game</button>
       </Form>
-      {agentId?.data?.accountId && <p>Logged in successfully</p>}
-      {res?.error && <p>Log in failed</p>}
+      {agentId.data?.accountId && <p>Logged in successfully</p>}
+      {resp?.error && <p>Log in failed</p>}
       <pre>Agent ID: {agentId}</pre>
     </>
   )
