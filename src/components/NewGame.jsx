@@ -15,10 +15,11 @@ export default function NewGame() {
 
   // Set agentData and token state variables from response to registration action once received
   useEffect(() => {
-    console.log("res:", resp)
+    console.log("resp:", resp)
     if (resp && !resp.error) {
       setAgentData(JSON.stringify(resp, null, 2))
       setToken(resp.data?.token)
+      setGameToken(resp.data?.token)
     } else if (resp?.error) {
       console.error("Error from API:", resp.error)
     }
@@ -27,13 +28,13 @@ export default function NewGame() {
   // Check agentData and token state variables have been updated successfully after registration
   useEffect(() => {
     console.log("agentData:", agentData)
-    console.log("token:", resp.data.token)
+    console.log("token:", gameToken)
   }, [agentData, resp])
 
   return (
     <>
       <h1>New Game</h1>
-      <p>Once registered, save your game access token somewhere safe for future play.</p>
+      <p>Once registered, your game access token will be saved to local storage. Record this safely for future play.</p>
       <Form method="post">
         <input
           name="symbol"
@@ -47,11 +48,11 @@ export default function NewGame() {
         />
         <button type="submit">Start New Game</button>
       </Form>
-      {resp.data?.token && <p>Registered successfully, now check out your contracts through the game navigation dropdown</p>}
+      {gameToken && <p>Registered successfully, now check out your contracts through the game navigation dropdown.</p>}
       {resp?.error && <p>Registration failed</p>}
       {/* Display the token and response data */}
       <pre>Game access token: {gameToken}</pre>
-      <pre>Agent data: {agentData}</pre>
+      <pre>Agent: {agentData}</pre>
     </>
   )
 }

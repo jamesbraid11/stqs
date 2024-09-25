@@ -13,5 +13,10 @@ export function setToken(token) {
 
 // This function gets game access token from local storage
 export function getToken() {
-  return localStorage.getItem(tokenName)
+  const token = localStorage.getItem(tokenName)
+  if (!token) {
+    console.warn("No token found in local storage")
+    return null
+  }
+  return token
 }

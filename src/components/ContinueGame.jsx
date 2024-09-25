@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { Form, useActionData } from "react-router-dom"
 
-import { setToken } from '../utils/helpers/common'
+import { setToken, getToken } from '../utils/helpers/common'
 
 export default function ContinueGame() {
 
@@ -12,15 +12,19 @@ export default function ContinueGame() {
   // Access the response received from user log in
   const resp = useActionData()
 
-  // Set token state variable from user's form entry
+    // Set token in local storage when form.token changes, but only if it's non-empty
   useEffect(() => {
-    setToken(form.token)
-    console.log("token:", token)
-  }, [form])
+    if (form.token) {
+      setToken(form.token)
+      console.log("token saved:", getToken())
+    }
+  }, [form.token])
 
   // Set agentId state variable from response to registration action once received
   useEffect(() => {
     console.log("resp:", resp)
+    setToken(form.token)
+    console.log("token:", getToken())
     if (resp && !resp.error) {
       setAgentId(JSON.stringify(resp, null, 2))
     } else if (resp?.error) {
