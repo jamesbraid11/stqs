@@ -10,7 +10,7 @@ export default function App() {
 
   const navigation = useNavigation()
 
-  const [agentData, setAgentData] = useState("");
+  const [token, setToken] = useState("");
 
   return (
     <>
@@ -18,7 +18,7 @@ export default function App() {
       <main>
         {
           navigation.state === 'idle' ?
-            <Outlet context={[agentData, setAgentData]}/>
+            <Outlet context={[token, setToken]} />
             :
             <div>
               <img src={Loading} alt="monster loading gif" style={{ width: '20rem' }}/>
