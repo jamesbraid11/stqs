@@ -37,7 +37,7 @@ export default function Contracts() {
   }, [contractsResp])
 
   return (
-    <>
+    <section>
       <h1>Contracts</h1>
       <p>Enter the id of a contract you would like to accept below.</p>
       <Form method="post">
@@ -53,6 +53,6 @@ export default function Contracts() {
       {contractsResp?.error && <p>Something went wrong, please try again</p>}
       {/* Display the agent's current contracts data */}
       <pre>Current contracts: {contracts}</pre>
-    </>
+    </section>
   )
 }

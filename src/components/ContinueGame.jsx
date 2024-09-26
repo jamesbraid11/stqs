@@ -36,7 +36,7 @@ export default function ContinueGame() {
   }, [agentId])
 
   return (
-    <>
+    <section>
       <h1>Continue Game</h1>
       <Form
         method="post"
@@ -60,6 +60,6 @@ export default function ContinueGame() {
       {continueResp?.error && <p>Log in failed</p>}
       {/* Display the agent's ID data */}
       <pre>Agent ID: {agentId}</pre>
-    </>
+    </section>
   )
 }

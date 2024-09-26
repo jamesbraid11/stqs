@@ -12,9 +12,6 @@ body {
   line-height: 1.5;
   font-weight: 400;
 
-  display: flex;
-  justify-content: center;
-
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: $off-black;
@@ -26,9 +23,15 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
-section {
+#root {
   max-width: 1280px;
-  padding: 0 2rem;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+section {
+  min-width: 320px;
+  min-height: calc(100vh - 100px);
 }
 
 h1 {
