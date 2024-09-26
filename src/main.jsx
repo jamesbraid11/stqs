@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 // Styling
-import './index.css'
+import './styles/main.scss'
 
 // Page components
 import App from './App.jsx'
