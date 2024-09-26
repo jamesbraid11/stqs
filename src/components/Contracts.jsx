@@ -4,18 +4,18 @@ import { useEffect, useState } from "react"
 
 export default function Contracts() {
 
-  // Access the loaded data using useLoaderData
+  // Access the loaded data
   const load = useLoaderData()
 
   // Access the response received from user contract accept request
-  const resp = useActionData()
+  const contractsResp = useActionData()
 
   // State
   const [contracts, setContracts] = useState("")
   const [form, setForm] = useState({ contractId: "" })
   const [contractAccepted, setContractAccepted] = useState("")
 
-  // Set agentData and token state variables from response to registration action once received
+  // Set contracts load data to contracts state variable
   useEffect(() => {
     console.log("load:", load)
     if (load && !load.error) {
@@ -26,15 +26,15 @@ export default function Contracts() {
     }
   }, [load])
 
-    // Check response to user's accept contract request
-    useEffect(() => {
-      if (resp && !resp.error) {
-        setContractAccepted(JSON.stringify(resp.data, null, 2))
-        console.log("resp:", resp)
-      } else if (resp?.error) {
-        console.error("Error from API:", resp.error)
-      }
-    }, [resp])
+  // Set response from registration request to contractAccepted state variable if received
+  useEffect(() => {
+    if (contractsResp && !contractsResp.error) {
+      setContractAccepted(JSON.stringify(contractsResp.data, null, 2))
+      console.log("contractsResp:", contractsResp)
+    } else if (contractsResp?.error) {
+      console.error("Error from API:", contractsResp.error)
+    }
+  }, [contractsResp])
 
   return (
     <>
@@ -48,8 +48,10 @@ export default function Contracts() {
         />
         <button type="submit">Accept Contract</button>
       </Form>
+      {/* Report response status to user */}
       {contractAccepted && <p>Contract accepted</p>}
-      {resp?.error && <p>Something went wrong, please try again</p>}
+      {contractsResp?.error && <p>Something went wrong, please try again</p>}
+      {/* Display the agent's current contracts data */}
       <pre>Current contracts: {contracts}</pre>
     </>
   )

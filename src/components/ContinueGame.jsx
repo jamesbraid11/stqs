@@ -4,15 +4,16 @@ import { Form, useActionData } from "react-router-dom"
 import { setToken, getToken } from '../utils/helpers/common'
 
 export default function ContinueGame() {
+
   // State
-  // Initialize with token from local storage if available
+  // Initialise form with token from local storage if available
   const [form, setForm] = useState({ token: getToken() || "" })
   const [agentId, setAgentId] = useState("")
 
-  // Access the response received from user log in
-  const resp = useActionData()
+  // Access the response received from user log in request
+  const continueResp = useActionData()
 
-  // Set token in local storage when form.token changes, but only if it's non-empty
+  // Set token in local storage when form.token changes, but only if it's not empty
   useEffect(() => {
     if (form.token) {
       setToken(form.token)
@@ -20,14 +21,14 @@ export default function ContinueGame() {
     }
   }, [form.token])
 
-  // Set agentId state variable from response to registration action once received
+  // Set response from registration request to agentId state variable if received
   useEffect(() => {
-    if (resp && !resp.error) {
-      setAgentId(JSON.stringify(resp, null, 2))
-    } else if (resp?.error) {
-      console.error("Error from API:", resp.error)
+    if (continueResp && !continueResp.error) {
+      setAgentId(JSON.stringify(continueResp, null, 2))
+    } else if (continueResp?.error) {
+      console.error("Error from API:", continueResp.error)
     }
-  }, [resp])
+  }, [continueResp])
 
   // Check agentId state variable has been updated successfully after registration
   useEffect(() => {
@@ -40,7 +41,7 @@ export default function ContinueGame() {
       <Form
         method="post"
         onSubmit={() => {
-          // Only save non-empty token to local storage
+          // Only save token to local storage if field not empty
           if (form.token) {
             setToken(form.token)
             console.log("token set on form submit:", getToken())
@@ -54,8 +55,10 @@ export default function ContinueGame() {
         />
         <button type="submit">Continue Game</button>
       </Form>
+      {/* Report response status to user */}
       {agentId && <p>Logged in successfully</p>}
-      {resp?.error && <p>Log in failed</p>}
+      {continueResp?.error && <p>Log in failed</p>}
+      {/* Display the agent's ID data */}
       <pre>Agent ID: {agentId}</pre>
     </>
   )

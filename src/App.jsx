@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { Outlet, useNavigation } from 'react-router-dom'
 
 // Custom components
@@ -11,19 +10,16 @@ export default function App() {
 
   const navigation = useNavigation()
 
-  // State to be accessible to all children with useOutletContext
-  const [token, setToken] = useState("")
-
   return (
     <>
     <Nav />
       <main>
         {
           navigation.state === 'idle' ?
-            <Outlet context={[token, setToken]} />
+            <Outlet />
             :
             <div>
-              <img src={Loading} alt="monster loading gif" style={{ width: '20rem' }}/>
+              <img src={Loading} alt="monster loading gif" style={{ width: '25rem' }}/>
             </div>
         }
       </main>

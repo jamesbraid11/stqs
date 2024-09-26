@@ -16,8 +16,8 @@ export default function Nav() {
           Game Navigation
         </button>
       </header>
-
-      <Modal show={show} fullscreen={true} onHide={() => setShow(false)}>
+      {/* Display links to other game components and a link to the SpaceTraders guide website when game navigation button clicked */}
+      <Modal show={show} onHide={() => setShow(false)}>
         <Modal.Header closeButton>
           <nav onClick={() => setShow(false)}>
             <Link to="https://docs.spacetraders.io/quickstart/new-game" target="_blank"><i>Game Info</i></Link>

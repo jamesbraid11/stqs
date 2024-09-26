@@ -11,25 +11,25 @@ export default function NewGame() {
   const [form, setForm] = useState({ symbol: "", faction: "COSMIC" })
 
   // Access the response received from user registration
-  const resp = useActionData()
+  const newResp = useActionData()
 
   // Set agentData and token state variables from response to registration action once received
   useEffect(() => {
-    console.log("resp:", resp)
-    if (resp && !resp.error) {
-      setAgentData(JSON.stringify(resp, null, 2))
-      setToken(resp.data?.token)
-      setGameToken(resp.data?.token)
-    } else if (resp?.error) {
-      console.error("Error from API:", resp.error)
+    console.log("newResp:", newResp)
+    if (newResp && !newResp.error) {
+      setAgentData(JSON.stringify(newResp, null, 2))
+      setToken(newResp.data?.token)
+      setGameToken(newResp.data?.token)
+    } else if (newResp?.error) {
+      console.error("Error from API:", newResp.error)
     }
-  }, [resp])
+  }, [newResp])
 
   // Check agentData and token state variables have been updated successfully after registration
   useEffect(() => {
     console.log("agentData:", agentData)
     console.log("token:", gameToken)
-  }, [agentData, resp])
+  }, [agentData, newResp])
 
   return (
     <>
@@ -48,9 +48,10 @@ export default function NewGame() {
         />
         <button type="submit">Start New Game</button>
       </Form>
+      {/* Report response status to user */}
       {gameToken && <p>Registered successfully, now check out your contracts through the game navigation dropdown.</p>}
-      {resp?.error && <p>Registration failed</p>}
-      {/* Display the token and response data */}
+      {newResp?.error && <p>Registration failed</p>}
+      {/* Display the agent's token and response data */}
       <pre>Game access token: {gameToken}</pre>
       <pre>Agent: {agentData}</pre>
     </>
