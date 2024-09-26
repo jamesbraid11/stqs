@@ -1,26 +1,60 @@
+@import './global/variables.scss';
 @import './components/NewGame.scss';
+@import './components/Nav.scss';
 
 * {
   box-sizing: border-box;
 }
 
 body {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
+  display: flex;
+  justify-content: center;
+
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: $off-black;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
+
+section {
+  max-width: 1280px;
+  padding: 0 2rem;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border: 1.5px solid $off-black;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  color: $off-black;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: $bright-green;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  background-color: #242424;
+  color: $bright-green;
+  border-color: $bright-green;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
 }
 
 blockquote {

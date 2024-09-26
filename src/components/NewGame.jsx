@@ -33,27 +33,33 @@ export default function NewGame() {
 
   return (
     <>
-      <h1>New Game</h1>
-      <p>Once registered, your game access token will be saved to local storage. Record this safely for future play.</p>
-      <Form method="post">
-        <input
-          name="symbol"
-          value={form.symbol}
-          onChange={(e) => setForm({ ...form, symbol: e.currentTarget.value })}
-        />
-        <input
-          name="faction"
-          value={form.faction}
-          onChange={(e) => setForm({ ...form, faction: e.currentTarget.value })}
-        />
-        <button type="submit">Start New Game</button>
-      </Form>
-      {/* Report response status to user */}
-      {gameToken && <p>Registered successfully, now check out your contracts through the game navigation dropdown.</p>}
-      {newResp?.error && <p>Registration failed</p>}
-      {/* Display the agent's token and response data */}
-      <pre>Game access token: {gameToken}</pre>
-      <pre>Agent: {agentData}</pre>
+      <section className="new-game-section">
+        <div className="new-game-input">
+          <h1>New Game</h1>
+          <p>Once registered, your game access token will be saved to local storage. Record this safely for future play.</p>
+          <Form method="post">
+            <input
+              name="symbol"
+              value={form.symbol}
+              onChange={(e) => setForm({ ...form, symbol: e.currentTarget.value })}
+            />
+            <input
+              name="faction"
+              value={form.faction}
+              onChange={(e) => setForm({ ...form, faction: e.currentTarget.value })}
+            />
+            <button type="submit">Start New Game</button>
+          </Form>
+        </div>
+        <div className="new-game-response">
+          {/* Report response status to user */}
+          {gameToken && <p>Registered successfully, now check out your contracts through the game navigation dropdown.</p>}
+          {newResp?.error && <p>Registration failed</p>}
+          {/* Display the agent's token and response data */}
+          <pre>Game access token: {gameToken}</pre>
+          <pre>Agent: {agentData}</pre>
+        </div>
+      </section>
     </>
   )
 }
