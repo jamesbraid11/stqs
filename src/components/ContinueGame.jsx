@@ -5,7 +5,8 @@ import { setToken, getToken } from '../utils/helpers/common'
 
 export default function ContinueGame() {
   // State
-  const [form, setForm] = useState({ token: getToken() || "" }) // Initialize with token from local storage if available
+  // Initialize with token from local storage if available
+  const [form, setForm] = useState({ token: getToken() || "" })
   const [agentId, setAgentId] = useState("")
 
   // Access the response received from user log in

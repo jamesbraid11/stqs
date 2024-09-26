@@ -11,7 +11,7 @@ import ContinueGame from './components/ContinueGame.jsx'
 import Contracts from './components/Contracts.jsx'
 
 // Actions
-import { loadAgent, registerAgent } from './utils/actions/stqs.js'
+import { acceptContract, loadAgent, registerAgent } from './utils/actions/stqs.js'
 
 // Loaders
 import { fetchContracts } from './utils/loaders/stqs.js'
@@ -34,7 +34,8 @@ const router = createBrowserRouter([
       {
         path: '/contracts',
         element: <Contracts />,
-        loader: fetchContracts
+        loader: fetchContracts,
+        action: async ({ request }) => acceptContract(request)
       },
     ]
   }
