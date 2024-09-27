@@ -7,39 +7,34 @@ header {
   height: 100px;
 }
 
-// a {
-//   text-decoration: none;
-//   color: inherit;
-// }
-
 .dropdown {
   position: relative;
   display: inline-block;
-}
 
-.dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 168px;
-  background-color: $bright-green;
-  padding: 10px;
-  margin: 0;
-  border: 1.5px solid $off-black;
-  list-style: none;
-  z-index: 1;
-}
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 168px;
+    background-color: $bright-green;
+    padding: 10px;
+    margin: 0;
+    border: 1.5px solid $off-black;
+    list-style: none;
+    z-index: 1;
 
-.dropdown-menu li {
-  margin: 5px 0;
-}
+    li {
+      margin: 5px 0;
+    }
 
-.dropdown-menu a {
-  color: $off-black;
-  text-decoration: none;
-  display: block;
-}
+    a {
+      color: $off-black;
+      text-decoration: none;
+      display: block;
 
-.dropdown-menu a:hover {
-  text-decoration: underline;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 }

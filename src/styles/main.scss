@@ -49,15 +49,17 @@ button {
   background-color: $bright-green;
   cursor: pointer;
   transition: border-color 0.25s;
-}
-button:hover {
-  background-color: #242424;
-  color: $bright-green;
-  border-color: $bright-green;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+
+  &:hover {
+    background-color: #242424;
+    color: $bright-green;
+    border-color: $bright-green;
+
+    &:focus,
+    &:focus-visible {
+      outline: 4px auto -webkit-focus-ring-color;
+    }
+  }
 }
 
 blockquote {
