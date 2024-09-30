@@ -1,50 +1,38 @@
-import { useState, useEffect } from "react"
-import { Form, useActionData } from "react-router-dom"
+import { useState, useEffect } from 'react';
+import { Form, useActionData } from 'react-router-dom';
 
-import { setToken } from '../utils/helpers/common'
+import { setToken } from '../utils/helpers/common';
 
-// Define types for form data
-interface NewGameData {
-  symbol: string;
-  faction: string;
-}
-
-// Define types for important API response data
-interface NewGameResponse {
-  error?: string;
-  data?: {
-    token: string;
-  };
-}
+import type { RegisterAgentResponse, NewGameFormData } from '../types/index.ts';
 
 export default function NewGame() {
 
   // States
-  const [agentData, setAgentData] = useState<string>("")
-  const [gameToken, setGameToken] = useState<string>("")
-  const [form, setForm] = useState<NewGameData>({ symbol: "", faction: "COSMIC" })
+  const [agentData, setAgentData] = useState<string>("");
+  const [gameToken, setGameToken] = useState<string>("");
+  const [form, setForm] = useState<NewGameFormData>({ symbol: "", faction: "COSMIC" });
 
   // Access the response received from user registration
-  const newResp = useActionData() as NewGameResponse | undefined
+  const newResp = useActionData() as RegisterAgentResponse | undefined;
 
   // Set agentData and token state variables from response to registration action once received
   useEffect(() => {
-    console.log("newResp:", newResp)
+    console.log("newResp:", newResp);
     if (newResp && !newResp.error) {
-      setAgentData(JSON.stringify(newResp, null, 2))
+      setAgentData(JSON.stringify(newResp, null, 2));
       if (newResp.data?.token) {
-        setToken(newResp.data.token)
-        setGameToken(newResp.data.token)
+        setToken(newResp.data.token);
+        setGameToken(newResp.data.token);
       }
     } else if (newResp?.error) {
-      console.error("Error from API:", newResp.error)
+      console.error("Error from API:", newResp.error);
     }
   }, [newResp])
 
   // Check agentData and token state variables have been updated successfully after registration
   useEffect(() => {
-    console.log("agentData:", agentData)
-    console.log("token:", gameToken)
+    console.log("agentData:", agentData);
+    console.log("token:", gameToken);
   }, [agentData, gameToken])
 
   return (

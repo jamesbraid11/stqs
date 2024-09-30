@@ -1,20 +1,11 @@
+// Helper functions
 import { getToken } from '../helpers/common';
 
-// * Fetch contracts loader
-// Define types for important API response data
-// Here I would define the types for more of the response when needed in future scaling
-// ! Need to check in future what response data contains when all contracts have expired
-interface Contract {
-  id: string;
-  accepted: boolean;
-}
+// Types
+import type { ContractsLoadData } from '../../types/index.ts';
 
-interface ContractsResponse {
-  error?: string;
-  data?: Contract[];
-}
-
-export async function fetchContracts(): Promise<ContractsResponse> {
+// This function sends a get request to fetch an agent's current contracts
+export async function fetchContracts(): Promise<ContractsLoadData> {
   // Get user game access token from local storage
   const token = getToken();
 
@@ -31,7 +22,7 @@ export async function fetchContracts(): Promise<ContractsResponse> {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
       }
-    });
+    })
 
     const json = await resp.json();
     

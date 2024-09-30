@@ -1,20 +1,20 @@
-import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 // Styling
-import './styles/main.scss'
+import './styles/main.scss';
 
 // Page components
-import App from './App.js'
-import NewGame from './components/NewGame.tsx'
-import ContinueGame from './components/ContinueGame.tsx'
-import Contracts from './components/Contracts.tsx'
+import App from './App.tsx';
+import NewGame from './components/NewGame.tsx';
+import ContinueGame from './components/ContinueGame.tsx';
+import Contracts from './components/Contracts.tsx';
 
 // Actions
-import { acceptContract, loadAgent, registerAgent } from './utils/actions/stqs.ts'
+import { acceptContract, fetchAgent, registerAgent } from './utils/actions/stqs.ts';
 
 // Loaders
-import { fetchContracts } from './utils/loaders/stqs.ts'
+import { fetchContracts } from './utils/loaders/stqs.ts';
 
 const router = createBrowserRouter([
   {
@@ -29,7 +29,7 @@ const router = createBrowserRouter([
       {
         path: '/continueGame',
         element: <ContinueGame />,
-        action: async ({ request }) => loadAgent(request)
+        action: async ({ request }) => fetchAgent(request)
       },
       {
         path: '/contracts',

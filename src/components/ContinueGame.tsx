@@ -1,52 +1,41 @@
-import { useState, useEffect } from "react"
-import { Form, useActionData } from "react-router-dom"
+import { useState, useEffect } from 'react';
+import { Form, useActionData } from 'react-router-dom';
 
-import { setToken, getToken } from '../utils/helpers/common'
+// Helpers
+import { setToken, getToken } from '../utils/helpers/common';
 
-// Define types for form data
-interface FormState {
-  token: string
-}
+// Types
+import type { GameAccessToken, FetchAgentResponse } from '../types/index.ts';
 
-// Define types for important API response data
-interface Agent {
-  accountId: string;
-  symbol: string;
-}
-
-interface ContinueResponse {
-  error?: string;
-  data?: Agent[];
-}
 
 export default function ContinueGame() {
   // State
-  const [form, setForm] = useState<FormState>({ token: getToken() || "" })
-  const [agentId, setAgentId] = useState<string>("")
+  const [form, setForm] = useState<GameAccessToken>({ token: getToken() || "" });
+  const [agentId, setAgentId] = useState<string>("");
 
   // Access the response received from user log in request
-  const continueResp = useActionData() as ContinueResponse | undefined
+  const continueResp = useActionData() as FetchAgentResponse | undefined;
 
   // Set token in local storage when form.token changes, but only if it's not empty
   useEffect(() => {
     if (form.token) {
-      setToken(form.token)
-      console.log("token saved:", getToken())
+      setToken(form.token);
+      console.log("token saved:", getToken());
     }
   }, [form.token])
 
   // Set response from registration request to agentId state variable if received
   useEffect(() => {
     if (continueResp && !continueResp.error) {
-      setAgentId(JSON.stringify(continueResp, null, 2))
+      setAgentId(JSON.stringify(continueResp, null, 2));
     } else if (continueResp?.error) {
-      console.error("Error from API:", continueResp.error)
+      console.error("Error from API:", continueResp.error);
     }
   }, [continueResp])
 
   // Check agentId state variable has been updated successfully after registration
   useEffect(() => {
-    console.log("agentId:", agentId)
+    console.log("agentId:", agentId);
   }, [agentId])
 
   return (

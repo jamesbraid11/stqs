@@ -1,30 +1,19 @@
+// Helper functions
 import { formToObj, getToken } from '../helpers/common.ts';
 
-// * Register agent post request
-// Define types for data sent to the API
-interface RegisterAgentData {
-  symbol: string;
-  faction: string;
-}
+// Types
+import type { RegisterAgentResponse, NewGameFormData, GameAccessToken, FetchAgentResponse, AcceptContractId, AcceptContractResponse } from '../../types/index.ts';
 
-// Define types for response from the API
-// Here I would define the types for more of the response when needed in future scaling
-interface RegisterAgentResponse {
-  error?: string;
-  data?: {
-    token: string;
-  };
-}
 
-// This function sends a post request containing user data from NewGame to create an agent
+// *This function sends a post request containing user data from NewGame to create an agent
 export async function registerAgent(request: Request): Promise<RegisterAgentResponse> {
   // Convert request data into object containing user form entries using formToObj helper function
   const formData: Record<string, string> = await formToObj(request);
-  const obj: RegisterAgentData = {
+  const obj: NewGameFormData = {
     ...formData,
     symbol: formData.symbol || "",
     faction: formData.faction || "",
-  };
+  }
   console.log("obj:", obj);
 
   try {
@@ -38,7 +27,7 @@ export async function registerAgent(request: Request): Promise<RegisterAgentResp
         symbol: obj.symbol,
         faction: obj.faction,
       }),
-    });
+    })
 
     const json = await resp.json();
 
@@ -58,33 +47,15 @@ export async function registerAgent(request: Request): Promise<RegisterAgentResp
   }
 }
 
-// * Continue/load agent get request
-// Define types for data sent to the API
-interface LoadAgentData {
-  token: string;
-}
 
-// Define types for response from the API
-// Again here, more types could be defined when needed in future scaling
-interface Agent {
-  accountId: string;
-  symbol: string;
-}
-
-interface LoadAgentResponse {
-  error?: string;
-  data?: Agent[];
-}
-
-// This function sends a GET request containing user token from local storage to load basic agent data
-export async function loadAgent(request: Request): Promise<LoadAgentResponse> {
+// *This function sends a GET request containing user token from local storage to fetch basic agent data
+export async function fetchAgent(request: Request): Promise<FetchAgentResponse> {
   // Convert request data into object containing user form entries using formToObj helper function
-  // ... existing code ...
   const formData: Record<string, string> = await formToObj(request);
-  const obj: LoadAgentData = {
+  const obj: GameAccessToken = {
     ...formData,
     token: formData.token || "",
-  };
+  }
   console.log("obj:", obj);
 
   try {
@@ -114,27 +85,8 @@ export async function loadAgent(request: Request): Promise<LoadAgentResponse> {
   }
 }
 
-// * Accept contractpost request
-// Define types for data sent to the API
-interface AcceptContractData {
-  contractId: string;
-}
 
-// Define types for response from the API
-// Again here, more types could be defined when needed in future scaling
-interface Contract {
-  id: string;
-  accepted: boolean;
-}
-
-interface AcceptContractResponse {
-  error?: string;
-  data?: {
-    contract: Contract;
-  }
-}
-
-// This function sends a POST request containing user token from local storage and contract id from Contracts component to accept a contract
+// * This function sends a POST request containing user token from local storage and contract id from Contracts component to accept a contract
 export async function acceptContract(request: Request): Promise<AcceptContractResponse> {
   // Get user game access token from local storage
   const token = getToken();
@@ -142,10 +94,10 @@ export async function acceptContract(request: Request): Promise<AcceptContractRe
 
   // Convert request data into object containing user form entries using formToObj helper function
   const formData = await formToObj(request);
-  const obj: AcceptContractData = {
+  const obj: AcceptContractId = {
     ...formData,
     contractId: formData.contractId || "",
-  };
+  }
   console.log("obj:", obj);
 
   try {
