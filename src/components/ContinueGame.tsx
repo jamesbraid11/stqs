@@ -52,13 +52,11 @@ export default function ContinueGame() {
   return (
     <section>
       <h1>Continue Game</h1>
-      <Form
-        method="post"
-      >
+      <Form method="post">
         <input
           name="token"
           value={form.token}
-          onChange={(e) => setForm({ ...form, token: e.target.value })}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, token: e.target.value })}
         />
         <button type="submit">Continue Game</button>
       </Form>

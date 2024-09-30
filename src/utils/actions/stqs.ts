@@ -1,10 +1,13 @@
 import { formToObj, getToken } from '../helpers/common.ts';
 
+// * Register agent post request
+// Define types for data sent to the API
 interface RegisterAgentData {
   symbol: string;
   faction: string;
 }
 
+// Define types for response from the API
 // Here I would define the types for more of the response when needed in future scaling
 interface RegisterAgentResponse {
   error?: string;
@@ -55,10 +58,13 @@ export async function registerAgent(request: Request): Promise<RegisterAgentResp
   }
 }
 
+// * Continue/load agent get request
+// Define types for data sent to the API
 interface LoadAgentData {
   token: string;
 }
 
+// Define types for response from the API
 // Again here, more types could be defined when needed in future scaling
 interface Agent {
   accountId: string;
@@ -108,10 +114,13 @@ export async function loadAgent(request: Request): Promise<LoadAgentResponse> {
   }
 }
 
+// * Accept contractpost request
+// Define types for data sent to the API
 interface AcceptContractData {
   contractId: string;
 }
 
+// Define types for response from the API
 // Again here, more types could be defined when needed in future scaling
 interface Contract {
   id: string;

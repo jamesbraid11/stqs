@@ -8,13 +8,13 @@ import './styles/main.scss'
 import App from './App.jsx'
 import NewGame from './components/NewGame.tsx'
 import ContinueGame from './components/ContinueGame.tsx'
-import Contracts from './components/Contracts.jsx'
+import Contracts from './components/Contracts.tsx'
 
 // Actions
 import { acceptContract, loadAgent, registerAgent } from './utils/actions/stqs.ts'
 
 // Loaders
-import { fetchContracts } from './utils/loaders/stqs.js'
+import { fetchContracts } from './utils/loaders/stqs.ts'
 
 const router = createBrowserRouter([
   {

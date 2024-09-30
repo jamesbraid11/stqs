@@ -4,13 +4,13 @@ import { Form, useActionData } from "react-router-dom"
 import { setToken } from '../utils/helpers/common'
 
 // Define types for form data
-interface FormData {
+interface NewGameData {
   symbol: string;
   faction: string;
 }
 
 // Define types for important API response data
-interface ApiResp {
+interface NewGameResponse {
   error?: string;
   data?: {
     token: string;
@@ -22,10 +22,10 @@ export default function NewGame() {
   // States
   const [agentData, setAgentData] = useState<string>("")
   const [gameToken, setGameToken] = useState<string>("")
-  const [form, setForm] = useState<FormData>({ symbol: "", faction: "COSMIC" })
+  const [form, setForm] = useState<NewGameData>({ symbol: "", faction: "COSMIC" })
 
   // Access the response received from user registration
-  const newResp = useActionData() as ApiResp | undefined
+  const newResp = useActionData() as NewGameResponse | undefined
 
   // Set agentData and token state variables from response to registration action once received
   useEffect(() => {
@@ -55,12 +55,12 @@ export default function NewGame() {
         <input
           name="symbol"
           value={form.symbol}
-          onChange={(e) => setForm({ ...form, symbol: e.target.value })}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, symbol: e.target.value })}
         />
         <input
           name="faction"
           value={form.faction}
-          onChange={(e) => setForm({ ...form, faction: e.target.value })}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, faction: e.target.value })}
         />
         <button type="submit">Start New Game</button>
       </Form>
