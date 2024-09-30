@@ -61,6 +61,7 @@ interface LoadAgentData {
 
 // Again here, more types could be defined when needed in future scaling
 interface Agent {
+  accountId: string;
   symbol: string;
 }
 
