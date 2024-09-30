@@ -1,25 +1,40 @@
-import { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import { Form, useActionData } from "react-router-dom"
 
 import { setToken } from '../utils/helpers/common'
 
+interface FormData {
+  symbol: string;
+  faction: string;
+}
+
+interface ApiResp {
+  error?: string;
+  data?: {
+    token: string;
+    [key: string]: any;
+  };
+}
+
 export default function NewGame() {
 
   // States
-  const [agentData, setAgentData] = useState("")
-  const [gameToken, setGameToken] = useState("")
-  const [form, setForm] = useState({ symbol: "", faction: "COSMIC" })
+  const [agentData, setAgentData] = useState<string>("")
+  const [gameToken, setGameToken] = useState<string>("")
+  const [form, setForm] = useState<FormData>({ symbol: "", faction: "COSMIC" })
 
   // Access the response received from user registration
-  const newResp = useActionData()
+  const newResp = useActionData() as ApiResp | undefined
 
   // Set agentData and token state variables from response to registration action once received
   useEffect(() => {
     console.log("newResp:", newResp)
     if (newResp && !newResp.error) {
       setAgentData(JSON.stringify(newResp, null, 2))
-      setToken(newResp.data?.token)
-      setGameToken(newResp.data?.token)
+      if (newResp.data?.token) {
+        setToken(newResp.data.token)
+        setGameToken(newResp.data.token)
+      }
     } else if (newResp?.error) {
       console.error("Error from API:", newResp.error)
     }
@@ -29,7 +44,12 @@ export default function NewGame() {
   useEffect(() => {
     console.log("agentData:", agentData)
     console.log("token:", gameToken)
-  }, [agentData, newResp])
+  }, [agentData, gameToken])
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setForm(prevForm => ({ ...prevForm, [name]: value }))
+  }
 
   return (
     <section>
@@ -39,12 +59,12 @@ export default function NewGame() {
         <input
           name="symbol"
           value={form.symbol}
-          onChange={(e) => setForm({ ...form, symbol: e.currentTarget.value })}
+          onChange={handleInputChange}
         />
         <input
           name="faction"
           value={form.faction}
-          onChange={(e) => setForm({ ...form, faction: e.currentTarget.value })}
+          onChange={handleInputChange}
         />
         <button type="submit">Start New Game</button>
       </Form>
