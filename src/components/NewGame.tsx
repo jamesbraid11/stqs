@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { Form, useActionData } from "react-router-dom"
 
 import { setToken } from '../utils/helpers/common'
 
+// Define types for form data
 interface FormData {
   symbol: string;
   faction: string;
 }
 
+// Define types for important API response data
 interface ApiResp {
   error?: string;
   data?: {
     token: string;
-    [key: string]: any;
   };
 }
 
@@ -46,11 +47,6 @@ export default function NewGame() {
     console.log("token:", gameToken)
   }, [agentData, gameToken])
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setForm(prevForm => ({ ...prevForm, [name]: value }))
-  }
-
   return (
     <section>
       <h1>New Game</h1>
@@ -59,12 +55,12 @@ export default function NewGame() {
         <input
           name="symbol"
           value={form.symbol}
-          onChange={handleInputChange}
+          onChange={(e) => setForm({ ...form, symbol: e.target.value })}
         />
         <input
           name="faction"
           value={form.faction}
-          onChange={handleInputChange}
+          onChange={(e) => setForm({ ...form, faction: e.target.value })}
         />
         <button type="submit">Start New Game</button>
       </Form>

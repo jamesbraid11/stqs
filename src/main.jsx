@@ -7,7 +7,7 @@ import './styles/main.scss'
 // Page components
 import App from './App.jsx'
 import NewGame from './components/NewGame.tsx'
-import ContinueGame from './components/ContinueGame.jsx'
+import ContinueGame from './components/ContinueGame.tsx'
 import Contracts from './components/Contracts.jsx'
 
 // Actions

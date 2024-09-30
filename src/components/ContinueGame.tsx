@@ -3,15 +3,29 @@ import { Form, useActionData } from "react-router-dom"
 
 import { setToken, getToken } from '../utils/helpers/common'
 
-export default function ContinueGame() {
+// Define types for form data
+interface FormState {
+  token: string
+}
 
+// Define types for important API response data
+interface Agent {
+  accountId: string;
+  symbol: string;
+}
+
+interface ContinueResponse {
+  error?: string;
+  data?: Agent[];
+}
+
+export default function ContinueGame() {
   // State
-  // Initialise form with token from local storage if available
-  const [form, setForm] = useState({ token: getToken() || "" })
-  const [agentId, setAgentId] = useState("")
+  const [form, setForm] = useState<FormState>({ token: getToken() || "" })
+  const [agentId, setAgentId] = useState<string>("")
 
   // Access the response received from user log in request
-  const continueResp = useActionData()
+  const continueResp = useActionData() as ContinueResponse | undefined
 
   // Set token in local storage when form.token changes, but only if it's not empty
   useEffect(() => {
@@ -40,18 +54,11 @@ export default function ContinueGame() {
       <h1>Continue Game</h1>
       <Form
         method="post"
-        onSubmit={() => {
-          // Only save token to local storage if field not empty
-          if (form.token) {
-            setToken(form.token)
-            console.log("token set on form submit:", getToken())
-          }
-        }}
       >
         <input
           name="token"
           value={form.token}
-          onChange={(e) => setForm({ ...form, token: e.currentTarget.value })}
+          onChange={(e) => setForm({ ...form, token: e.target.value })}
         />
         <button type="submit">Continue Game</button>
       </Form>
