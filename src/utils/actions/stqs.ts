@@ -113,12 +113,15 @@ interface AcceptContractData {
 
 // Again here, more types could be defined when needed in future scaling
 interface Contract {
+  id: string;
   accepted: boolean;
 }
 
 interface AcceptContractResponse {
   error?: string;
-  data?: Contract;
+  data?: {
+    contract: Contract;
+  }
 }
 
 // This function sends a POST request containing user token from local storage and contract id from Contracts component to accept a contract
