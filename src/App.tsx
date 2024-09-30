@@ -1,7 +1,7 @@
 import { Outlet, useNavigation } from 'react-router-dom'
 
 // Custom components
-import Nav from './components/Nav'
+import Nav from './components/Nav.tsx'
 
 // Loading gif
 import Loading from './images/galaxy.gif'

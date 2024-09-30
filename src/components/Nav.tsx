@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 export default function Nav() {
 
   // State to track dropdown visibility
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   // Function to toggle dropdown open/close
   const toggleDropdown = () => setIsOpen(!isOpen);

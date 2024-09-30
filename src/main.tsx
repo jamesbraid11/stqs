@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './styles/main.scss'
 
 // Page components
-import App from './App.jsx'
+import App from './App.js'
 import NewGame from './components/NewGame.tsx'
 import ContinueGame from './components/ContinueGame.tsx'
 import Contracts from './components/Contracts.tsx'
@@ -41,6 +41,6 @@ const router = createBrowserRouter([
   }
 ])
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <RouterProvider router={router} />
 )
