@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 
 // Types
 import type { AcceptContractResponse, ContractsLoadData } from '../types/index.ts';
+import { getToken } from '../utils/helpers/common.ts';
 
 
 export default function Contracts() {
@@ -50,6 +51,8 @@ export default function Contracts() {
         />
         <button type="submit">Accept Contract</button>
       </Form>
+      {/* Report to user if no token saved to local storage */}
+      {!getToken() && <p>Start a new game or continue game to view your contracts.</p>}
       {/* Report response status to user */}
       {contractAccepted && <p>Contract accepted</p>}
       {acceptContractResp?.error && <p>Something went wrong, please try again</p>}
